@@ -207,7 +207,7 @@ public class PipelineSimulator {
             isMemoryLoaded = false;
         }
     }
-
+    
     public void loadMemoryGUI(String fileName) {
 
         try {
