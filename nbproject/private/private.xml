@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/H:/SeniorFall/AdvCompArch/Mips64GUISkeleton/Mips64GUISkeleton/src/mips64/ProgramCounter.java</file>
+            <file>file:/H:/SeniorFall/AdvCompArch/Mips64GUISkeleton/Mips64GUISkeleton/src/mips64/ExMemStage.java</file>
+            <file>file:/H:/SeniorFall/AdvCompArch/Mips64GUISkeleton/Mips64GUISkeleton/src/mips64/MemWbStage.java</file>
+            <file>file:/H:/SeniorFall/AdvCompArch/Mips64GUISkeleton/Mips64GUISkeleton/src/mips64/IdExStage.java</file>
+            <file>file:/H:/SeniorFall/AdvCompArch/Mips64GUISkeleton/Mips64GUISkeleton/src/mips64/PipelineSimulator.java</file>
+            <file>file:/H:/SeniorFall/AdvCompArch/Mips64GUISkeleton/Mips64GUISkeleton/src/mips64/IfIdStage.java</file>
+        </group>
+    </open-files>
 </project-private>
