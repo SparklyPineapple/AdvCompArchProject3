@@ -20,5 +20,17 @@ public class IdExStage {
     }
 
     public void update() {
+        //get instPC and opcode from IFID stage through Sim
+        
+        // check which type of intructions and based on type of instruction
+                //set Reg A and (RegB or immediate)
+                //if it's and I- type or R-type ShouldWB = true
+                
+                
+                //Gallagher tip: use Java "instance of" to find type of Instructions
+
+
+              
+        
     }
 }
