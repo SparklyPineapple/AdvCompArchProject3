@@ -1363,7 +1363,7 @@ public class Mips64GUIView extends FrameView {
 
     private void updateRegs() {
         for (int i = 1; i <= 31; i++) {
-            int newValue = simulator.getIdExStage().getIntRegister(i);
+            int newValue = simulator.getIntReg(i);
             regs[i].setText(Integer.toString(newValue));
         }
     }
