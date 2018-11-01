@@ -21,7 +21,31 @@ public class IdExStage {
 
     public void update() {
         //get instPC and opcode from IFID stage through Sim
+        IfIdStage FD = simulator.getIfIdStage();
+        instPC = FD.instPC;
+        opcode = FD.opcode;
         
+         Instruction currInstruct = Instruction.getInstructionFromOper(opcode<<26);
+        
+        //depending on instruction type, set Reg A and RegB and immediate accordingly
+         if(currInstruct instanceof JTypeInst){
+             shouldWriteback = false;
+             immediate = ((JTypeInst) currInstruct).offset;
+         }else if(currInstruct instanceof RTypeInst){
+             shouldWriteback = true;
+             regAData = ((RTypeInst) currInstruct).rs;
+             regBData = ((RTypeInst) currInstruct).rt;
+             immediate = ((RTypeInst) currInstruct).shamt;
+         }else if(currInstruct instanceof ITypeInst){
+             shouldWriteback = true;
+             regAData = ((ITypeInst) currInstruct).rs;
+             regBData = ((ITypeInst) currInstruct).rt;
+             immediate = ((ITypeInst) currInstruct).immed;
+         }else{
+             //something is very wrong if
+         }
+                     
+         
         // check which type of intructions and based on type of instruction
                 //set Reg A and (RegB or immediate)
                 //if it's and I- type or R-type ShouldWB = true
@@ -29,7 +53,7 @@ public class IdExStage {
                 
                 //Gallagher tip: use Java "instance of" to find type of Instructions
 
-
+      
               
         
     }
