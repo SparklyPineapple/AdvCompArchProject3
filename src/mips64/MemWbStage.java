@@ -7,8 +7,8 @@ public class MemWbStage {
     boolean shouldWriteback = false;
     int instPC;
     int opcode;
-    int aluIntData; //if load holds addr
-    int loadIntData; //where we put the data we loaded from mem
+    int aluIntData; 
+    int loadIntData; 
 
     public MemWbStage(PipelineSimulator sim) {
         simulator = sim;
@@ -28,6 +28,9 @@ public class MemWbStage {
         
         
         //do the WB PART
+        if(shouldWriteback){
+            simulator.setIntReg(loadIntData, aluIntData);
+        }
         
         
         //Part 2: forwarding reg
