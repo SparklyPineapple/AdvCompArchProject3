@@ -14,10 +14,10 @@ public class IdExStage {
         simulator = sim;
     }
 
-    int getIntRegister(int regNum) {
-        // todo - add supporting code
-        return 0;
-    }
+//    int getIntRegister(int regNum) {
+//        // todo - add supporting code
+//        return 0;
+//    }
 
     public void update() {
         //get instPC and opcode from IFID stage through Sim
