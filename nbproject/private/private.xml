@@ -5,11 +5,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/ailinleong213/Documents/School/AdvCompArch/AdvCompArchProject3/src/mips64/PipelineSimulator.java</file>
+            <file>file:/C:/Users/ailinleong213/Documents/School/AdvCompArch/AdvCompArchProject3/src/mips64/MemWbStage.java</file>
             <file>file:/C:/Users/ailinleong213/Documents/School/AdvCompArch/AdvCompArchProject3/src/mips64/Instruction.java</file>
             <file>file:/C:/Users/ailinleong213/Documents/School/AdvCompArch/AdvCompArchProject3/src/mips64/RTypeInst.java</file>
             <file>file:/C:/Users/ailinleong213/Documents/School/AdvCompArch/AdvCompArchProject3/src/mips64/JTypeInst.java</file>
             <file>file:/C:/Users/ailinleong213/Documents/School/AdvCompArch/AdvCompArchProject3/src/mips64/Mips64GUIView.java</file>
-            <file>file:/C:/Users/ailinleong213/Documents/School/AdvCompArch/AdvCompArchProject3/src/mips64/ITypeInst.java</file>
             <file>file:/C:/Users/ailinleong213/Documents/School/AdvCompArch/AdvCompArchProject3/src/mips64/IdExStage.java</file>
         </group>
     </open-files>
