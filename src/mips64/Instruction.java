@@ -384,5 +384,12 @@ public class Instruction {
       default:
         throw new MIPSException("GetInstructionFromOper: unexpected opcode");
     }
+    
+    
+    
+    
+    
+    
+    
   }
 }
