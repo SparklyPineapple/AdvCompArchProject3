@@ -9,7 +9,9 @@ public class ExMemStage {
    // int destReg;
     int aluIntData;
     int storeIntData; //where we put data when we need to store in mem
-
+    
+    int DestReg;
+    
     public ExMemStage(PipelineSimulator sim) {
         simulator = sim;
     }
@@ -20,7 +22,7 @@ public class ExMemStage {
         shouldWriteback = idEx.shouldWriteback;
         instPC = idEx.instPC;
         opcode = idEx.opcode;
-        
+        DestReg = idEx.DestReg;
         
 
         //HUGE SWITCH STATEMENT 
@@ -31,8 +33,8 @@ public class ExMemStage {
         
         //offset is stored in immedate
         
-        int operandA = simulator.regArr[idEx.regAData];
-        int operandB = simulator.regArr[idEx.regBData];
+        int operandA = idEx.regAData;
+        int operandB = idEx.regBData;
         
  
         

@@ -2,6 +2,7 @@ package mips64;
 
 public class IfIdStage {
   PipelineSimulator simulator;
+  Instruction currInstruct;
   int instPC=-1;
   int opcode=-1;
 
@@ -18,6 +19,9 @@ public class IfIdStage {
       
       //use instPC to set opcode using Memory Model class functions
       setOpcode();
+      
+      currInstruct = simulator.getMemory().getInstAtAddr(instPC);
+           
   }
   
   /**
