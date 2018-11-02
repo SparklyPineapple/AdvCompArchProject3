@@ -9,7 +9,11 @@ public class IdExStage {
     int regAData;
     int regBData;
     int immediate;
-
+    
+    //We Added these
+    int DestReg = 0;
+    Instruction currInstruct;
+    
     public IdExStage(PipelineSimulator sim) {
         simulator = sim;
     }
@@ -24,8 +28,8 @@ public class IdExStage {
         IfIdStage FD = simulator.getIfIdStage();
         instPC = FD.instPC;
         opcode = FD.opcode;
+        currInstruct = FD.currInstruct;
         
-         Instruction currInstruct = Instruction.getInstructionFromOper(opcode << 26);
         
         //depending on instruction type, set Reg A and RegB and immediate accordingly
          if(currInstruct instanceof JTypeInst){
@@ -33,29 +37,33 @@ public class IdExStage {
              immediate = ((JTypeInst) currInstruct).offset;
          }else if(currInstruct instanceof RTypeInst){
              shouldWriteback = true;
-             regAData = ((RTypeInst) currInstruct).rs;
-             regBData = ((RTypeInst) currInstruct).rt;
+             DestReg = simulator.regArr[((RTypeInst) currInstruct).rd];
+             regAData = simulator.regArr[((RTypeInst) currInstruct).rs];
+             regBData = simulator.regArr[((RTypeInst) currInstruct).rt];
              immediate = ((RTypeInst) currInstruct).shamt;
+         
+         
          }else if(currInstruct instanceof ITypeInst){
-             if(opcode == 0 || opcode ==2|| opcode ==5 || opcode ==10 || opcode ==12 || opcode ==14){
-                 
-//      case INST_ADDI: 5
-//      case INST_ANDI: 10
-//      case INST_ORI: 12
-//      case INST_XORI: 14
-//      case INST_LW: --0
-//      case INST_LWC1: --2
-                 
-             shouldWriteback = true;
              
-             }else{
-                 shouldWriteback = true;
-             }
-             regAData = ((ITypeInst) currInstruct).rs;
-             regBData = ((ITypeInst) currInstruct).rt;
+                                    //      case INST_LW -- 0
+                                    //      case INST_LWC1 -- 2
+                                    //      case INST_ADDI -- 5
+                                    //      case INST_ANDI -- 10
+                                    //      case INST_ORI -- 12
+                                    //      case INST_XORI -- 14
+//                                              case 15:
+//              return "SLL";
+//          case 16:
+//              return "SRL";
+//          case 17:
+//              return "SRA";
+            shouldWriteback = opcode == 0 || opcode == 2|| opcode == 5|| opcode == 10|| opcode == 12|| opcode == 14|| opcode == 15|| opcode == 16|| opcode == 17;
+             
+             regAData = simulator.regArr[((ITypeInst) currInstruct).rs];
+             DestReg = simulator.regArr[((ITypeInst) currInstruct).rt];
              immediate = ((ITypeInst) currInstruct).immed;
          }else{
-             //something is very wrong if
+             //something is very wrong if code falls through here. 
          }
                      
          

@@ -4,6 +4,9 @@ public class IfIdStage {
   PipelineSimulator simulator;
   int instPC;
   int opcode;
+  
+  //We added this
+  Instruction currInstruct;
 
 
   public IfIdStage(PipelineSimulator sim) {
@@ -18,6 +21,9 @@ public class IfIdStage {
       
       //use instPC to set opcode using Memory Model class functions
       setOpcode();
+      
+      currInstruct = simulator.getMemory().getInstAtAddr(instPC);
+           
   }
   
   /**
