@@ -94,13 +94,16 @@ public class PipelineSimulator {
                     break;
                 case LOAD:
                     loadMemory();
+                    System.out.println("Memory Loaded");
                     break;
                 case RESET:
                     reset();
                     System.out.println("Simulation reset");
                     break;
                 case RUN:
+                    System.out.println("Start 'RUN'");
                     run();
+                    System.out.println("Stop 'RUN'");
                     break;
                 case STEP:
                     step();
