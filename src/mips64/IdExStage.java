@@ -25,7 +25,7 @@ public class IdExStage {
         instPC = FD.instPC;
         opcode = FD.opcode;
         
-         Instruction currInstruct = Instruction.getInstructionFromOper(opcode<<26);
+         Instruction currInstruct = Instruction.getInstructionFromOper(opcode << 26);
         
         //depending on instruction type, set Reg A and RegB and immediate accordingly
          if(currInstruct instanceof JTypeInst){
@@ -37,7 +37,20 @@ public class IdExStage {
              regBData = ((RTypeInst) currInstruct).rt;
              immediate = ((RTypeInst) currInstruct).shamt;
          }else if(currInstruct instanceof ITypeInst){
+             if(opcode == 0 || opcode ==2|| opcode ==5 || opcode ==10 || opcode ==12 || opcode ==14){
+                 
+//      case INST_ADDI: 5
+//      case INST_ANDI: 10
+//      case INST_ORI: 12
+//      case INST_XORI: 14
+//      case INST_LW: --0
+//      case INST_LWC1: --2
+                 
              shouldWriteback = true;
+             
+             }else{
+                 shouldWriteback = true;
+             }
              regAData = ((ITypeInst) currInstruct).rs;
              regBData = ((ITypeInst) currInstruct).rt;
              immediate = ((ITypeInst) currInstruct).immed;

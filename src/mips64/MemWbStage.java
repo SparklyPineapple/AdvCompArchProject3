@@ -36,14 +36,18 @@ public class MemWbStage {
             loadIntData = simulator.memory.getIntDataAtAddr(exMem.aluIntData);
         }
         
-       //store in memory
-       if (opcode == 1){
-           simulator.memory.setIntDataAtAddr(exMem.aluIntData, exMem.storeIntData);
-       }
-       
-        //do the WB PART (registers)
+        
+        //do the WB PART
         if(shouldWriteback){
-            simulator.setIntReg(loadIntData, aluIntData);
+            if (exMem.opcode == 0){
+                //simulator.setIntReg(int regNum, int newdata);
+               // simulator.setIntReg(int regNum, loadIntData);
+               
+               //make a Destination register number in ExMem and store Destination REgister number in it. 
+            }else{
+                
+            }
+            
         }
         
         
