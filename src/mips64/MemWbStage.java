@@ -5,10 +5,10 @@ public class MemWbStage {
     PipelineSimulator simulator;
     boolean halted = false;
     boolean shouldWriteback = false;
-    int instPC;
-    int opcode;
+    int instPC =-1;
+    int opcode =-1;
     int aluIntData; 
-    int loadIntData; 
+    int loadIntData = 0; 
 
     public MemWbStage(PipelineSimulator sim) {
         simulator = sim;
@@ -21,7 +21,7 @@ public class MemWbStage {
     public void update() {
         //get instPC and opcode and shouldWriteBack from EXMEM stage through Sim
         //grab aluIntData from EXMEM stage through Sim
-        
+        loadIntData=0;
         ExMemStage exMem = simulator.getExMemStage();
         if (exMem.opcode == 63){
             halted = true;

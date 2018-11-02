@@ -4,8 +4,8 @@ public class IdExStage {
 
     PipelineSimulator simulator;
     boolean shouldWriteback = false;
-    int instPC;
-    int opcode;
+    int instPC=-1;
+    int opcode =-1;
     int regAData;
     int regBData;
     int immediate;

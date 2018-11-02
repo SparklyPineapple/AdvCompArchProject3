@@ -2,8 +2,8 @@ package mips64;
 
 public class IfIdStage {
   PipelineSimulator simulator;
-  int instPC;
-  int opcode;
+  int instPC=-1;
+  int opcode=-1;
 
 
   public IfIdStage(PipelineSimulator sim) {

@@ -4,8 +4,8 @@ public class ExMemStage {
 
     PipelineSimulator simulator;
     boolean shouldWriteback = false;
-    int instPC;
-    int opcode;
+    int instPC =-1;
+    int opcode =-1;
    // int destReg;
     int aluIntData;
     int storeIntData; //where we put data when we need to store in mem
@@ -66,7 +66,12 @@ public class ExMemStage {
                 aluIntData = operandA * operandB;
             case 8:
               //return "DIV";
-                aluIntData = operandA / operandB;
+                if (operandB != 0){
+                    aluIntData = operandA / operandB;
+                }else{
+                    aluIntData = operandA;
+                    System.out.println("ERROR Divide by zero:ExMem");
+                }
             case 9:
               //return "AND";
                 aluIntData = operandA & operandB;
