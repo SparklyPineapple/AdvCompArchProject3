@@ -6,7 +6,7 @@ public class ExMemStage {
     boolean shouldWriteback = false;
     int instPC;
     int opcode;
-    
+   // int destReg;
     int aluIntData;
     int storeIntData; //where we put data when we need to store in mem
     

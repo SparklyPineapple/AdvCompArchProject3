@@ -3,7 +3,7 @@ package mips64;
 public class MemWbStage {
 
     PipelineSimulator simulator;
-    boolean halted;
+    boolean halted = false;
     boolean shouldWriteback = false;
     int instPC;
     int opcode;
@@ -26,9 +26,22 @@ public class MemWbStage {
         //grab aluIntData from EXMEM stage through Sim
         
         //Do the MEM part
-            
-        ExMemStage ExMem = simulator.exMem;
-        DestReg = ExMem.DestReg;
+        ExMemStage exMem = simulator.getExMemStage();
+        if (exMem.opcode == 63){
+            halted = true;
+        }
+        shouldWriteback = exMem.shouldWriteback;
+        instPC = exMem.instPC;
+        opcode = exMem.opcode;
+        aluIntData = exMem.aluIntData;
+        DestReg = exMem.DestReg;
+
+        //load from memory
+        if (opcode == 0){
+            loadIntData = simulator.memory.getIntDataAtAddr(exMem.aluIntData);
+        }
+        
+        
         
         
         //do the WB PART
