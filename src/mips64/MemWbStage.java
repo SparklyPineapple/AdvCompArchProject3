@@ -9,6 +9,9 @@ public class MemWbStage {
     int opcode;
     int aluIntData; 
     int loadIntData; 
+    
+    //We added these
+    int DestReg;
 
     public MemWbStage(PipelineSimulator sim) {
         simulator = sim;
@@ -24,12 +27,25 @@ public class MemWbStage {
         
         //Do the MEM part
             
-        
+        ExMemStage ExMem = simulator.exMem;
+        DestReg = ExMem.DestReg;
         
         
         //do the WB PART
         if(shouldWriteback){
-            simulator.setIntReg(loadIntData, aluIntData);
+            
+            // What are we writing? and Where are we writing to?
+                //if the Instruction is an R-type then we write aluIntData to destReg
+           
+                //if the Instruction is LW then we are defintely writing LoadintData to the destReg
+            
+            if(opcode == 0){
+                simulator.setIntReg(DestReg, loadIntData);
+            }else{
+                simulator.setIntReg(DestReg, loadIntData);
+            }
+            
+            
         }
         
         
