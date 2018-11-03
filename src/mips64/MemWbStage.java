@@ -5,13 +5,11 @@ public class MemWbStage {
     PipelineSimulator simulator;
     boolean halted = false;
     boolean shouldWriteback = false;
-    int instPC;
-    int opcode;
-    int aluIntData; 
-    int loadIntData; 
-    
-    //We added these
+    int instPC =-1;
+    int opcode =-1;
+    int aluIntData =0; 
     int DestReg;
+    int loadIntData = 0; 
 
     public MemWbStage(PipelineSimulator sim) {
         simulator = sim;
@@ -25,41 +23,49 @@ public class MemWbStage {
         //get instPC and opcode and shouldWriteBack from EXMEM stage through Sim
         //grab aluIntData from EXMEM stage through Sim
         
-        //Do the MEM part
-        ExMemStage exMem = simulator.getExMemStage();
-        if (exMem.opcode == 63){
+        
+         //It it's a HALT, halt
+        if (opcode == 63){
             halted = true;
+            aluIntData =0;
+            loadIntData =0;
         }
+        
+        
+        //Do the MEM part///////////////////////////////////////////////////////////////
+
+        //load from Memory
+        if (opcode == 0){
+            loadIntData = simulator.memory.getIntDataAtAddr(aluIntData);
+            
+        // Store to Memory
+        }else if(opcode == 1){
+            simulator.memory.setIntDataAtAddr(aluIntData, simulator.regArr[DestReg]);
+        }
+        
+        
+        
+        //Do the WB part///////////////////////////////////////////////////////////////
+        if(shouldWriteback){
+            
+            //if the instruction was a load, value to be written is loadIntData,
+            //else value to be written is aluIntData
+            if(opcode == 0){
+                simulator.setIntReg(DestReg, loadIntData);
+            }else{
+                simulator.setIntReg(DestReg, aluIntData);
+            }
+            
+            
+        }
+        
+        //update
+        ExMemStage exMem = simulator.getExMemStage();
         shouldWriteback = exMem.shouldWriteback;
         instPC = exMem.instPC;
         opcode = exMem.opcode;
         aluIntData = exMem.aluIntData;
         DestReg = exMem.DestReg;
-
-        //load from memory
-        if (opcode == 0){
-            loadIntData = simulator.memory.getIntDataAtAddr(exMem.aluIntData);
-        }
-        
-        
-        
-        
-        //do the WB PART
-        if(shouldWriteback){
-            
-            // What are we writing? and Where are we writing to?
-                //if the Instruction is an R-type then we write aluIntData to destReg
-           
-                //if the Instruction is LW then we are defintely writing LoadintData to the destReg
-            
-            if(opcode == 0){
-                simulator.setIntReg(DestReg, loadIntData);
-            }else{
-                simulator.setIntReg(DestReg, loadIntData);
-            }
-            
-            
-        }
         
         
         //Part 2: forwarding reg

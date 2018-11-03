@@ -4,12 +4,10 @@ public class ExMemStage {
 
     PipelineSimulator simulator;
     boolean shouldWriteback = false;
-    int instPC;
-    int opcode;
-   // int destReg;
-    int aluIntData;
-    int storeIntData; //where we put data when we need to store in mem
-    
+    int instPC =-1;
+    int opcode =-1;
+    int aluIntData =0;
+    int storeIntData =0; 
     int DestReg;
     
     public ExMemStage(PipelineSimulator sim) {
@@ -41,12 +39,13 @@ public class ExMemStage {
         switch(opcode){
             case 0:
               //return "LW";
-              aluIntData = operandA + idEx.immediate;        
+              aluIntData = operandA + idEx.immediate;
+              break;
             case 1:
               //return "SW";
                 aluIntData = operandA + idEx.immediate;
                 storeIntData = operandB;//data to store in memory
-                
+                break;
             //FP stuff
             //case 2:
               //return "LWC1"; //THIS IS FP LOAD
@@ -57,46 +56,64 @@ public class ExMemStage {
             case 4:
               //return "ADD";
                 aluIntData = operandA + operandB;
+                break;
             case 5:
               //return "ADDI";
                 aluIntData = operandA + idEx.immediate;
+                break;
             case 6:
               //return "SUB";
                 aluIntData = operandA - operandB;
+                break;
             case 7:
               //return "MUL";
                 aluIntData = operandA * operandB;
+                break;
             case 8:
               //return "DIV";
-                aluIntData = operandA / operandB;
+                if (operandB != 0){
+                    aluIntData = operandA / operandB;
+                }else{
+                    //aluIntData = operandA;
+                    System.out.println("ERROR Divide by zero:ExMem");
+                }
+                break;
             case 9:
               //return "AND";
                 aluIntData = operandA & operandB;
+                break;
             case 10:
               //return "ANDI";
                 aluIntData = operandA & idEx.immediate;
+                break;
             case 11:
               //return "OR";
                 aluIntData = operandA | operandB;
+                break;
             case 12:
               //return "ORI";
                 aluIntData = operandA | idEx.immediate;
+                break;
             case 13:
               //return "XOR";
                 aluIntData = operandA ^ operandB;
+                break;
             case 14:
               //return "XORI";
                 aluIntData = operandA ^ idEx.immediate;
+                break;
             case 15:
               //return "SLL";
                 aluIntData = operandA << idEx.immediate;
+                break;
             case 16:
               //return "SRL"; //shifts unsigned
                 aluIntData = operandA >>> idEx.immediate;
+                break;
             case 17:
               //return "SRA"; //shifts in signbit
                 aluIntData = operandA >> idEx.immediate;
-                
+                break;
                 
               //More FP
 //            case 18:
@@ -168,9 +185,11 @@ public class ExMemStage {
             //NOTHING TO DO FOR HALT & NOP 
 //            case 62:
 //              //return "NOP";
-//            case 63:
+            case 63:
 //              //return "HALT";
-//                
+                aluIntData =0;
+                storeIntData =0;
+                break; 
             default:
               //return "NOP";
             System.out.println ("opcode = " + opcode);

@@ -4,11 +4,11 @@ public class IdExStage {
 
     PipelineSimulator simulator;
     boolean shouldWriteback = false;
-    int instPC;
-    int opcode;
-    int regAData;
-    int regBData;
-    int immediate;
+    int instPC=-1;
+    int opcode =-1;
+    int regAData =0;
+    int regBData =0;
+    int immediate = 0;
     
     //We Added these
     int DestReg = 0;
@@ -37,7 +37,7 @@ public class IdExStage {
              immediate = ((JTypeInst) currInstruct).offset;
          }else if(currInstruct instanceof RTypeInst){
              shouldWriteback = true;
-             DestReg = simulator.regArr[((RTypeInst) currInstruct).rd];
+             DestReg = ((RTypeInst) currInstruct).rd;
              regAData = simulator.regArr[((RTypeInst) currInstruct).rs];
              regBData = simulator.regArr[((RTypeInst) currInstruct).rt];
              immediate = ((RTypeInst) currInstruct).shamt;
@@ -60,7 +60,7 @@ public class IdExStage {
             shouldWriteback = opcode == 0 || opcode == 2|| opcode == 5|| opcode == 10|| opcode == 12|| opcode == 14|| opcode == 15|| opcode == 16|| opcode == 17;
              
              regAData = simulator.regArr[((ITypeInst) currInstruct).rs];
-             DestReg = simulator.regArr[((ITypeInst) currInstruct).rt];
+             DestReg = ((ITypeInst) currInstruct).rt;
              immediate = ((ITypeInst) currInstruct).immed;
          }else{
              //something is very wrong if code falls through here. 
@@ -74,7 +74,11 @@ public class IdExStage {
                 
                 //Gallagher tip: use Java "instance of" to find type of Instructions
 
-      
+        if (opcode == 63){
+            regAData =0;
+            regBData =0;
+            immediate = 0; 
+      }
               
         
     }
