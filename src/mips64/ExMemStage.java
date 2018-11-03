@@ -144,13 +144,29 @@ public class ExMemStage {
                 
 //            //Branching 
 //            case 30:
-//              //return "BEQ";
+//             //return "BEQ";
+//             if(operandA == operandB){
+//                    simulator.getPCStage().setPC(idEx.immediate);
+//                }
+//                break;
 //            case 31:
 //              //return "BNE";
-//            case 32:
+//                if(operandA != operandB){
+//                    simulator.getPCStage().setPC(idEx.immediate);
+//                }
+//                break;
+            case 32:
 //              //return "BEQ";
-//            case 33:
+                if(operandA == operandB){
+                    simulator.getPCStage().setPC(idEx.immediate+instPC);
+                }
+                break;
+            case 33:
 //              //return "BNE";
+                if(operandA != operandB){
+                    simulator.getPCStage().setPC(idEx.immediate+instPC);
+                }
+                break;
 //            case 34:
 //              //return "BLTZ";
 //            case 35:

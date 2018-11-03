@@ -61,6 +61,7 @@ public class IdExStage {
              
              regAData = simulator.regArr[((ITypeInst) currInstruct).rs];
              DestReg = ((ITypeInst) currInstruct).rt;
+             regBData = simulator.regArr[((ITypeInst) currInstruct).rt];
              immediate = ((ITypeInst) currInstruct).immed;
          }else{
              //something is very wrong if code falls through here. 
@@ -69,7 +70,6 @@ public class IdExStage {
          
         // check which type of intructions and based on type of instruction
                 //set Reg A and (RegB or immediate)
-                //if it's and I- type or R-type ShouldWB = true
                 
                 
                 //Gallagher tip: use Java "instance of" to find type of Instructions
