@@ -9,6 +9,8 @@ public class ExMemStage {
     int aluIntData =0;
     int storeIntData =0; 
     int DestReg;
+    boolean jumpOrBranch;
+    //boolean jump;
     
     public ExMemStage(PipelineSimulator sim) {
         simulator = sim;
@@ -21,7 +23,8 @@ public class ExMemStage {
         instPC = idEx.instPC;
         opcode = idEx.opcode;
         DestReg = idEx.DestReg;
-        
+        jumpOrBranch = false;
+        //jump = false;
 
         //HUGE SWITCH STATEMENT 
             //for decoding opcode to add/sub..............
@@ -115,74 +118,86 @@ public class ExMemStage {
                 aluIntData = operandA >> idEx.immediate;
                 break;
                 
-              //More FP
-//            case 18:
-//              //return "ADD.S";           
-//            case 19:
-//              //return "SUB.S";
-//            case 20:
-//              //return "MUL.S";
-//            case 21:
-//              //return "DIV.S";
-//            case 22:
-//              //return "CVT.W.S";
-//            case 23:
-//              //return "CVT.S.W";
-//            case 24:
-//              //return "C.LT.S";
-//            case 25:
-//              //return "C.LE.S";
-//            case 26:
-//              //return "C.GT.S";
-//            case 27:
-//              //return "C.GE.S";
-//            case 28:
-//              //return "C.EQ.S";
-//            case 29:
-//              //return "C.NE.S";
-                
                 
 //            //Branching 
-//            case 30:
-//              //return "BEQ";
-//            case 31:
-//              //return "BNE";
-//            case 32:
-//              //return "BEQ";
-//            case 33:
-//              //return "BNE";
-//            case 34:
-//              //return "BLTZ";
-//            case 35:
-//              //return "BLEZ";
-//            case 36:
-//              //return "BGTZ";
-//            case 37:
-//              //return "BGEZ";
-//            case 38:
-//              //return "BC1T";
-//            case 39:
-//              //return "BC1F";
+             //aluIntData = instr address we are jumping to
+            case 32:
+              //return "BEQ";
+                if (operandA == operandB) {
+                    aluIntData = idEx.immediate;
+                    jumpOrBranch = true;
+                } 
+                break;
+            case 33:
+              //return "BNE";
+                if (operandA != operandB) {
+                    aluIntData = idEx.immediate;
+                    jumpOrBranch = true;
+                }
+                break;
+            case 34:
+              //return "BLTZ";
+                if (operandA < 0) {
+                    aluIntData = idEx.immediate;
+                    jumpOrBranch = true;
+                }
+                break;
+            case 35:
+              //return "BLEZ";
+                if (operandA <= 0) {
+                    aluIntData = idEx.immediate;
+                    jumpOrBranch = true;
+                }
+                break;
+            case 36:
+              //return "BGTZ";
+                if (operandA > 0) {
+                    aluIntData = idEx.immediate;
+                    jumpOrBranch = true;
+                }
+                break;
+            case 37:
+              //return "BGEZ";
+                if (operandA >= operandB) {
+                    aluIntData = idEx.immediate;
+                    jumpOrBranch = true;
+                }
+                break;
                 
-                
-//            //Jumping
-//            case 40:
-//              //return "J";
-//            case 41:
-//              //return "JR";
-//            case 42:
-//              //return "JAL";
-//            case 43:
-//              //return "JALR";
                 
             
-//            //Even More FP
-//            case 44:
-//              //return "MTC1";
-//            case 45:
-//              //return "MFC1";
                 
-            //NOTHING TO DO FOR HALT & NOP 
+//            //Jumping
+               //(branch carried out on next IF/ID update)
+               //rs = regArr[32]
+               //rd = regArr[31]
+               //aluIntData holds instr we are jumping too
+            case 40:
+              //return "J";
+                aluIntData = idEx.immediate; //instr that we are jumping too
+                jumpOrBranch = true;
+                break;
+            case 41:
+              //return "JR";
+                aluIntData = simulator.regArr[32];//reg PC needs to jump to 
+                jumpOrBranch = true;
+                break;
+            case 42:
+              //return "JAL";
+                simulator.regArr[31] = instPC+8; 
+                aluIntData = idEx.immediate; // intr that we are jumping too
+                jumpOrBranch = true;
+                break;
+            case 43:
+              //return "JALR";
+                simulator.regArr[31] = instPC+8; 
+                simulator.regArr[32] = instPC;
+                aluIntData = idEx.immediate; // intr that we are jumping too
+                jumpOrBranch = true;
+                break;              
+            
+                
+            //NOTHING TO DO FOR NOP 
 //            case 62:
 //              //return "NOP";
             case 63:
