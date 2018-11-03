@@ -187,9 +187,11 @@ public class ExMemStage {
             //NOTHING TO DO FOR HALT & NOP 
 //            case 62:
 //              //return "NOP";
-//            case 63:
+            case 63:
 //              //return "HALT";
-//                
+                aluIntData =0;
+                storeIntData =0;
+                break; 
             default:
               //return "NOP";
             System.out.println ("opcode = " + opcode);

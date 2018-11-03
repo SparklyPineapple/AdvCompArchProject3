@@ -20,3 +20,6 @@
 60:  NOP
       --Store R3=15 into addr5 (aka replace the 5 w/ a 15 in mem)
 64:  HALT
+68:  SW R3, 4015(R5)
+72:  NOP
+76:  NOP

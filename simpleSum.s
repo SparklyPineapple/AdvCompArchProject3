@@ -21,6 +21,9 @@ NOP
 NOP
 --Store R3=15 into addr5 (aka replace the 5 w/ a 15 in mem)
 HALT
+SW R3, 4015(R5)
+NOP
+NOP
 End Assembly
 Begin Data 4000 44
 10

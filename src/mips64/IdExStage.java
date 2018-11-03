@@ -74,7 +74,11 @@ public class IdExStage {
                 
                 //Gallagher tip: use Java "instance of" to find type of Instructions
 
-      
+        if (opcode == 63){
+            regAData =0;
+            regBData =0;
+            immediate = 0; 
+      }
               
         
     }

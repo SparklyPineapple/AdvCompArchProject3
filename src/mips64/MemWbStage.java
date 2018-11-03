@@ -24,20 +24,18 @@ public class MemWbStage {
         //grab aluIntData from EXMEM stage through Sim
         
         //Do the MEM part
-        loadIntData=0;
-        ExMemStage exMem = simulator.getExMemStage();
-        if (exMem.opcode == 63){
+
+        //It it's a HALT, halt
+        if (opcode == 63){
             halted = true;
+            aluIntData =0;
+            loadIntData =0;
         }
-        shouldWriteback = exMem.shouldWriteback;
-        instPC = exMem.instPC;
-        opcode = exMem.opcode;
-        aluIntData = exMem.aluIntData;
-        DestReg = exMem.DestReg;
+        
 
         //load from memory
         if (opcode == 0){
-            loadIntData = simulator.memory.getIntDataAtAddr(exMem.aluIntData);
+            loadIntData = simulator.memory.getIntDataAtAddr(aluIntData);
         }else if(opcode == 1){
             simulator.memory.setIntDataAtAddr(aluIntData, simulator.regArr[DestReg]);
         }
@@ -61,6 +59,14 @@ public class MemWbStage {
             
             
         }
+        
+        //update
+        ExMemStage exMem = simulator.getExMemStage();
+        shouldWriteback = exMem.shouldWriteback;
+        instPC = exMem.instPC;
+        opcode = exMem.opcode;
+        aluIntData = exMem.aluIntData;
+        DestReg = exMem.DestReg;
         
         
         //Part 2: forwarding reg

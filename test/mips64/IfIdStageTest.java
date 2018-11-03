@@ -50,10 +50,7 @@ public class IfIdStageTest extends TestCase {
         
         
       
-        assertEquals(0, pipeSim.getIfIdStage().getInstPC());
-        assertEquals(4, pipeSim.getIfIdStage().getOpcode());
-        System.out.println("opcode = " + pipeSim.getIfIdStage().getOpcode());
-        System.out.println("instPC = " + pipeSim.getIfIdStage().getInstPC());
+
         fail("update() function failed");
     }
     
