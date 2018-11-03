@@ -7,7 +7,7 @@ public class MemWbStage {
     boolean shouldWriteback = false;
     int instPC =-1;
     int opcode =-1;
-    int aluIntData; 
+    int aluIntData =0; 
     int DestReg;
     int loadIntData = 0; 
 
@@ -38,6 +38,8 @@ public class MemWbStage {
         //load from memory
         if (opcode == 0){
             loadIntData = simulator.memory.getIntDataAtAddr(exMem.aluIntData);
+        }else if(opcode == 1){
+            simulator.memory.setIntDataAtAddr(aluIntData, simulator.regArr[DestReg]);
         }
         
         
@@ -54,7 +56,7 @@ public class MemWbStage {
             if(opcode == 0){
                 simulator.setIntReg(DestReg, loadIntData);
             }else{
-                simulator.setIntReg(DestReg, loadIntData);
+                simulator.setIntReg(DestReg, aluIntData);
             }
             
             

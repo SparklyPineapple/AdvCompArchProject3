@@ -7,8 +7,8 @@ public class ExMemStage {
     int instPC =-1;
     int opcode =-1;
    // int destReg;
-    int aluIntData;
-    int storeIntData; //where we put data when we need to store in mem
+    int aluIntData =0;
+    int storeIntData =0; //where we put data when we need to store in mem
     
     int DestReg;
     
