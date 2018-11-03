@@ -19,6 +19,7 @@ public class PipelineSimulator {
     int breakAddress = -1;
     boolean quietMode = true;
     int instExec = 0;
+    int[] regArr = new int[32];
 
     public PipelineSimulator() {
         this("");
@@ -43,6 +44,15 @@ public class PipelineSimulator {
         reset();
     }
 
+    public int getIntReg(int regNum) {
+        return regArr[regNum];
+    }
+    
+    public void setIntReg(int regNum, int newValue) {
+         regArr[regNum] = newValue;
+    }
+    
+    
     public MemoryModel getMemory() {
         return memory;
     }
@@ -84,13 +94,16 @@ public class PipelineSimulator {
                     break;
                 case LOAD:
                     loadMemory();
+                    System.out.println("Memory Loaded");
                     break;
                 case RESET:
                     reset();
                     System.out.println("Simulation reset");
                     break;
                 case RUN:
+                    System.out.println("Start 'RUN'");
                     run();
+                    System.out.println("Stop 'RUN'");
                     break;
                 case STEP:
                     step();
@@ -207,7 +220,7 @@ public class PipelineSimulator {
             isMemoryLoaded = false;
         }
     }
-
+    
     public void loadMemoryGUI(String fileName) {
 
         try {
@@ -231,7 +244,7 @@ public class PipelineSimulator {
             System.out.print("R" + (row * 4) + "\t");
             for (int reg = 0; reg < 4; reg++) {
                 int regNum = row * 4 + reg;
-                System.out.print(idEx.getIntRegister(regNum) + "  ");
+                System.out.print(getIntReg(regNum) + "  ");
             }
             System.out.println();
         }

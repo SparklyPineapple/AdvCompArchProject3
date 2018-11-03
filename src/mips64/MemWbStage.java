@@ -3,12 +3,13 @@ package mips64;
 public class MemWbStage {
 
     PipelineSimulator simulator;
-    boolean halted;
+    boolean halted = false;
     boolean shouldWriteback = false;
-    int instPC;
-    int opcode;
-    int aluIntData;
-    int loadIntData;
+    int instPC =-1;
+    int opcode =-1;
+    int aluIntData =0; 
+    int DestReg;
+    int loadIntData = 0; 
 
     public MemWbStage(PipelineSimulator sim) {
         simulator = sim;
@@ -19,5 +20,54 @@ public class MemWbStage {
     }
 
     public void update() {
+        //get instPC and opcode and shouldWriteBack from EXMEM stage through Sim
+        //grab aluIntData from EXMEM stage through Sim
+        
+        
+         //It it's a HALT, halt
+        if (opcode == 63){
+            halted = true;
+            aluIntData =0;
+            loadIntData =0;
+        }
+        
+        
+        //Do the MEM part///////////////////////////////////////////////////////////////
+
+        //load from Memory
+        if (opcode == 0){
+            loadIntData = simulator.memory.getIntDataAtAddr(aluIntData);
+            
+        // Store to Memory
+        }else if(opcode == 1){
+            simulator.memory.setIntDataAtAddr(aluIntData, simulator.regArr[DestReg]);
+        }
+        
+        
+        
+        //Do the WB part///////////////////////////////////////////////////////////////
+        if(shouldWriteback){
+            
+            //if the instruction was a load, value to be written is loadIntData,
+            //else value to be written is aluIntData
+            if(opcode == 0){
+                simulator.setIntReg(DestReg, loadIntData);
+            }else{
+                simulator.setIntReg(DestReg, aluIntData);
+            }
+            
+            
+        }
+        
+        //update
+        ExMemStage exMem = simulator.getExMemStage();
+        shouldWriteback = exMem.shouldWriteback;
+        instPC = exMem.instPC;
+        opcode = exMem.opcode;
+        aluIntData = exMem.aluIntData;
+        DestReg = exMem.DestReg;
+        
+        
+        //Part 2: forwarding reg
     }
 }
