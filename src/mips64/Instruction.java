@@ -34,8 +34,8 @@ public class Instruction {
   public static final int INST_C_GE_S = 27;
   public static final int INST_C_EQ_S = 28;
   public static final int INST_C_NE_S = 29;
-//  public static final int INST_BEQ = 30;
-//  public static final int INST_BNE = 31;
+ // public static final int INST_BEQ = 30;
+ // public static final int INST_BNE = 31;
   public static final int INST_BEQ = 32;
   public static final int INST_BNE = 33;
   public static final int INST_BLTZ = 34;

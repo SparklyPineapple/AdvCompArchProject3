@@ -51,7 +51,8 @@ public class ITypeInst
     newInst.opcode = opcode;
     newInst.rs = (oper >> 21) & 0x1f;
     newInst.rt = (oper >> 16) & 0x1f;
-    newInst.immed = oper & 0xffff;
+    newInst.immed = (oper << 16) >> 16;
+    //newInst.immed = oper & 0xffff;
 
     return (Instruction) newInst;
   }

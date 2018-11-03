@@ -124,15 +124,28 @@ public class ExMemStage {
             case 32:
               //return "BEQ";
                 if (operandA == operandB) {
-                    aluIntData = idEx.immediate;
-                    jumpOrBranch = true;
-                } 
+//            case 30:
+//             //return "BEQ";
+//             if(operandA == operandB){
+//                    simulator.getPCStage().setPC(idEx.immediate);
+//                }
+//                break;
+//            case 31:
+//              //return "BNE";
+//                if(operandA != operandB){
+//                    simulator.getPCStage().setPC(idEx.immediate);
+//                }
+//                break;
+            case 32:
+//              //return "BEQ";
+                if(operandA == operandB){
+                    simulator.getPCStage().setPC(idEx.immediate+instPC);
+                }
                 break;
             case 33:
-              //return "BNE";
-                if (operandA != operandB) {
-                    aluIntData = idEx.immediate;
-                    jumpOrBranch = true;
+//              //return "BNE";
+                if(operandA != operandB){
+                    simulator.getPCStage().setPC(idEx.immediate+instPC);
                 }
                 break;
             case 34:
@@ -153,14 +166,14 @@ public class ExMemStage {
               //return "BGTZ";
                 if (operandA > 0) {
                     aluIntData = idEx.immediate;
-                    jumpOrBranch = true;
                 }
+                    jumpOrBranch = true;
                 break;
             case 37:
               //return "BGEZ";
                 if (operandA >= operandB) {
-                    aluIntData = idEx.immediate;
                     jumpOrBranch = true;
+                    aluIntData = idEx.immediate;
                 }
                 break;
                 
