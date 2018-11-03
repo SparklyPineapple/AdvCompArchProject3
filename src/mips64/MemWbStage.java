@@ -23,34 +23,33 @@ public class MemWbStage {
         //get instPC and opcode and shouldWriteBack from EXMEM stage through Sim
         //grab aluIntData from EXMEM stage through Sim
         
-        //Do the MEM part
-
-        //It it's a HALT, halt
+        
+         //It it's a HALT, halt
         if (opcode == 63){
             halted = true;
             aluIntData =0;
             loadIntData =0;
         }
         
+        
+        //Do the MEM part///////////////////////////////////////////////////////////////
 
-        //load from memory
+        //load from Memory
         if (opcode == 0){
             loadIntData = simulator.memory.getIntDataAtAddr(aluIntData);
+            
+        // Store to Memory
         }else if(opcode == 1){
             simulator.memory.setIntDataAtAddr(aluIntData, simulator.regArr[DestReg]);
         }
         
         
         
-        
-        //do the WB PART
+        //Do the WB part///////////////////////////////////////////////////////////////
         if(shouldWriteback){
             
-            // What are we writing? and Where are we writing to?
-                //if the Instruction is an R-type then we write aluIntData to destReg
-           
-                //if the Instruction is LW then we are defintely writing LoadintData to the destReg
-            
+            //if the instruction was a load, value to be written is loadIntData,
+            //else value to be written is aluIntData
             if(opcode == 0){
                 simulator.setIntReg(DestReg, loadIntData);
             }else{

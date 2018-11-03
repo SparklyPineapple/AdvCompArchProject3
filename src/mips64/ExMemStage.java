@@ -6,10 +6,8 @@ public class ExMemStage {
     boolean shouldWriteback = false;
     int instPC =-1;
     int opcode =-1;
-   // int destReg;
     int aluIntData =0;
-    int storeIntData =0; //where we put data when we need to store in mem
-    
+    int storeIntData =0; 
     int DestReg;
     
     public ExMemStage(PipelineSimulator sim) {
