@@ -121,9 +121,6 @@ public class ExMemStage {
                 
 //            //Branching 
              //aluIntData = instr address we are jumping to
-            case 32:
-              //return "BEQ";
-                if (operandA == operandB) {
 //            case 30:
 //             //return "BEQ";
 //             if(operandA == operandB){
