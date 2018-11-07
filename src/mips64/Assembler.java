@@ -559,13 +559,11 @@ public class Assembler {
         if (!hash.containsKey(tgt)) {
           throw new MIPSIOException("Assembler: bad Itype target");
         }
-        
         Integer off = (Integer) hash.get(tgt);
         try {
           offset = off.intValue();
           // offset from PC+4
           int branchOffset = offset - (assemblyOffset + 4);
-          int test = branchOffset & 0x0000FFFF;
           oper = opcode << 26 | reg << 21 | reg1 << 16 |
               (branchOffset & 0x0000FFFF);
         }
@@ -710,21 +708,16 @@ public class Assembler {
       System.out.println();
       System.out.print("Enter filename to assemble (do not add .s suffix)  ");
 
-      //Ailin is doing cracy things
-      String s = "simpleBranch";
-      
-    //  InputStreamReader isr = new InputStreamReader(System.in);
-      //InputStreamReader isr = new InputStreamReader(s);
-      //BufferedReader br = new BufferedReader(isr);
+      InputStreamReader isr = new InputStreamReader(System.in);
+      BufferedReader br = new BufferedReader(isr);
 
       try {
-        //String inString = br.readLine();
-        //Assembler assembler = new Assembler(inString);
-        Assembler assembler = new Assembler(s);
+        String inString = br.readLine();
+        Assembler assembler = new Assembler(inString);
         assembler.assemble();
         done=true;
         System.out.print("Assembly Completed!  Press ENTER to exit   ");
-        //inString = br.readLine();
+        inString = br.readLine();
       }
 
       catch (IOException ioe) {
