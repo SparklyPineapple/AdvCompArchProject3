@@ -1,16 +1,16 @@
 Begin Assembly
+
 --initial conditions
 ADDI R1, R1, 5
 ADDI R2, R2, 32
---should skip the addition
-NOP
-NOP
-JR R2
+--End: R31 should be changed, addition should be skipped
+JAL testBranch
 NOP
 NOP
 ADDI R2, R2, 1
 NOP
 NOP
+LABEL testBranch
 NOP
 HALT
 End Assembly

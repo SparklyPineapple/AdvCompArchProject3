@@ -136,40 +136,40 @@ public class ExMemStage {
             case 32:
 //              //return "BEQ";
                 if(operandA == operandB){
-                    simulator.getPCStage().setPC(idEx.immediate+instPC);
+                    simulator.getPCStage().setPC(idEx.immediate+instPC+4);
                 }
                 break;
             case 33:
 //              //return "BNE";
                 if(operandA != operandB){
-                    simulator.getPCStage().setPC(idEx.immediate+instPC);
+                    simulator.getPCStage().setPC(idEx.immediate+instPC+4);
                 }
                 break;
             case 34:
               //return "BLTZ";
                 if (operandA < 0) {
+                    simulator.getPCStage().setPC(idEx.immediate+instPC+4);
                     aluIntData = idEx.immediate;
-                    jumpOrBranch = true;
                 }
                 break;
             case 35:
               //return "BLEZ";
                 if (operandA <= 0) {
+                    simulator.getPCStage().setPC(idEx.immediate+instPC+4);
                     aluIntData = idEx.immediate;
-                    jumpOrBranch = true;
                 }
                 break;
             case 36:
               //return "BGTZ";
                 if (operandA > 0) {
+                    simulator.getPCStage().setPC(idEx.immediate+instPC+4);
                     aluIntData = idEx.immediate;
                 }
-                    jumpOrBranch = true;
                 break;
             case 37:
               //return "BGEZ";
-                if (operandA >= operandB) {
-                    jumpOrBranch = true;
+                if (operandA >= 0) {
+                    simulator.getPCStage().setPC(idEx.immediate+instPC+4);
                     aluIntData = idEx.immediate;
                 }
                 break;
@@ -184,26 +184,26 @@ public class ExMemStage {
                //aluIntData holds instr we are jumping too
             case 40:
               //return "J";
-                aluIntData = idEx.immediate; //instr that we are jumping too
+                simulator.getPCStage().setPC(idEx.immediate);
                 jumpOrBranch = true;
                 break;
             case 41:
               //return "JR";
-                aluIntData = simulator.regArr[32];//reg PC needs to jump to 
+                simulator.getPCStage().setPC(operandA);//reg PC needs to jump to 
                 jumpOrBranch = true;
                 break;
             case 42:
               //return "JAL";
-                simulator.regArr[31] = instPC+8; 
+                simulator.regArr[31] = instPC+4; 
+                simulator.getPCStage().setPC(idEx.immediate);
                 aluIntData = idEx.immediate; // intr that we are jumping too
-                jumpOrBranch = true;
                 break;
             case 43:
               //return "JALR";
-                simulator.regArr[31] = instPC+8; 
-                simulator.regArr[32] = instPC;
-                aluIntData = idEx.immediate; // intr that we are jumping too
-                jumpOrBranch = true;
+                //simulator.regArr[31] = instPC+8; 
+                simulator.regArr[31] = instPC+4;
+                simulator.getPCStage().setPC(operandA);
+                //aluIntData = idEx.immediate; // intr that we are jumping too
                 break;              
             
                 

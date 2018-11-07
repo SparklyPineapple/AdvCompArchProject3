@@ -1,6 +1,7 @@
       --initial conditions
 0:  ADDI R1, R1, 5
 4:  ADDI R2, R2, -1
+      --what if I comment here?
 LABEL testBeq
 8:  NOP
 12:  NOP

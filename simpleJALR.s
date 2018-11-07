@@ -1,14 +1,17 @@
 Begin Assembly
+
 --initial conditions
 ADDI R1, R1, 5
-ADDI R2, R2, -1
-LABEL testBeq
+ADDI R2, R2, 32
+--should skip addition and modify R31
+NOP
+NOP
+JALR R2
 NOP
 NOP
 ADDI R2, R2, 1
 NOP
 NOP
-BLEZ R2, testBeq
 NOP
 HALT
 End Assembly
