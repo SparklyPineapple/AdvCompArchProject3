@@ -1,16 +1,13 @@
 Begin Assembly
-
 --initial conditions
 ADDI R1, R1, 5
-ADDI R2, R2, 32
---End: R31 should be changed, addition should be skipped
-JAL testBranch
+ADDI R2, R2, -1
+-- R1 should equal 6, not 4
 NOP
 NOP
 ADDI R2, R2, 1
+ADDI R1, R2, 1
 NOP
-NOP
-LABEL testBranch
 NOP
 HALT
 End Assembly

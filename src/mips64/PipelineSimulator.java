@@ -16,6 +16,7 @@ public class PipelineSimulator {
     IdExStage idEx;
     ExMemStage exMem;
     MemWbStage memWb;
+    ForwardReg forwReg;
     int breakAddress = -1;
     boolean quietMode = true;
     int instExec = 0;
@@ -75,6 +76,10 @@ public class PipelineSimulator {
 
     public MemWbStage getMemWbStage() {
         return memWb;
+    }
+    
+    public ForwardReg getForwardReg() {
+        return forwReg;
     }
 
     public boolean getQuiet() {
@@ -198,6 +203,7 @@ public class PipelineSimulator {
         idEx = new IdExStage(this);
         exMem = new ExMemStage(this);
         memWb = new MemWbStage(this);
+        forwReg = new ForwardReg(this);
         pc.setPC(0);
         instExec = 0;
 

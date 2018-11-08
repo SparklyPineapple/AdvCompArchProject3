@@ -8,7 +8,7 @@ public class MemWbStage {
     int instPC =-1;
     int opcode =-1;
     int aluIntData =0; 
-    int DestReg;
+    int DestReg = 0;
     int loadIntData = 0; 
 
     public MemWbStage(PipelineSimulator sim) {
@@ -23,6 +23,9 @@ public class MemWbStage {
         //get instPC and opcode and shouldWriteBack from EXMEM stage through Sim
         //grab aluIntData from EXMEM stage through Sim
         
+        //Update Forwarding reg
+        ForwardReg FR = simulator.getForwardReg();
+        FR.update();
         
          //It it's a HALT, halt
         if (opcode == 63){
@@ -59,6 +62,7 @@ public class MemWbStage {
             
         }
         
+                
         //update
         ExMemStage exMem = simulator.getExMemStage();
         shouldWriteback = exMem.shouldWriteback;
@@ -68,6 +72,6 @@ public class MemWbStage {
         DestReg = exMem.DestReg;
         
         
-        //Part 2: forwarding reg
+        
     }
 }

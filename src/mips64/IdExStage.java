@@ -29,19 +29,56 @@ public class IdExStage {
         instPC = FD.instPC;
         opcode = FD.opcode;
         currInstruct = FD.currInstruct;
-        
+        ExMemStage ExMem = simulator.getExMemStage();
+        MemWbStage MemWb = simulator.getMemWbStage();
+        ForwardReg forwReg = simulator.getForwardReg();
         
         //depending on instruction type, set Reg A and RegB and immediate accordingly
          if(currInstruct instanceof JTypeInst){
              shouldWriteback = false;
              immediate = ((JTypeInst) currInstruct).offset;
+             DestReg = 0;
          }else if(currInstruct instanceof RTypeInst){
              shouldWriteback = true;
+             
+             
+             
              DestReg = ((RTypeInst) currInstruct).rd;
              regAData = simulator.regArr[((RTypeInst) currInstruct).rs];
              regBData = simulator.regArr[((RTypeInst) currInstruct).rt];
              immediate = ((RTypeInst) currInstruct).shamt;
          
+             
+             // if MemWb writing regAData, forward from MemWb
+             if(MemWb.DestReg == ((RTypeInst) currInstruct).rs){
+                 if(MemWb.opcode > 3 && MemWb.opcode< 18){
+                     regAData = MemWb.aluIntData;
+                 }
+             }
+             
+             // if MemWb writing regBData, forward from MemWb
+             if(MemWb.DestReg == ((RTypeInst) currInstruct).rt){
+                 if(MemWb.opcode > 3 && MemWb.opcode< 18 ||MemWb.opcode ==0){
+                     regBData = MemWb.aluIntData;
+                 }
+             }
+             
+             // if ExMem writing regAData, forward from ExMem
+             if(ExMem.DestReg == ((RTypeInst) currInstruct).rs){
+                 if(ExMem.opcode > 3 && ExMem.opcode< 18){
+                     regAData = ExMem.aluIntData;
+                 }
+             }
+             
+                 
+             // if ExMem writing regBData, forward from ExMem
+             if(ExMem.DestReg == ((RTypeInst) currInstruct).rt){
+                 if(ExMem.opcode > 3 && ExMem.opcode< 18){
+                     regBData = ExMem.aluIntData;
+                 }
+             }
+                 
+             
          
          }else if(currInstruct instanceof ITypeInst){
              
@@ -63,6 +100,24 @@ public class IdExStage {
              DestReg = ((ITypeInst) currInstruct).rt;
              regBData = simulator.regArr[((ITypeInst) currInstruct).rt];
              immediate = ((ITypeInst) currInstruct).immed;
+             
+             
+             // if MemWb writing regAData forward from MemWb
+             if(MemWb.DestReg == ((ITypeInst) currInstruct).rs){
+                 //Source Insturction is Reg-Reg or Immediate or is a LW
+                 if(MemWb.opcode > 3 && MemWb.opcode< 18 || (MemWb.opcode == 0) ){
+                     regAData = MemWb.aluIntData;
+                 }
+             }
+             
+                       
+             // if ExMem writing regAData, forward from ExMem
+             if(ExMem.DestReg == ((ITypeInst) currInstruct).rs){
+                 if(ExMem.opcode > 3 && ExMem.opcode< 18){
+                     regAData = ExMem.aluIntData;
+                 }
+             }
+             
          }else{
              //something is very wrong if code falls through here. 
          }
@@ -74,10 +129,11 @@ public class IdExStage {
                 
                 //Gallagher tip: use Java "instance of" to find type of Instructions
 
-        if (opcode == 63){
+        if (opcode == 63 || opcode == 62){
             regAData =0;
             regBData =0;
             immediate = 0; 
+            DestReg = 0;
       }
               
         
