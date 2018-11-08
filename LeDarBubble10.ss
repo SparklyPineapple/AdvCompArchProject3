@@ -8,21 +8,33 @@
 LABEL Idina
 28:  ADDI R4, R0, 0
 32:  SUB R9, R1, R3
+36:  NOP
+40:  ADD R13, R4, R10
 Label Jenessa
-36:  ADD R13, R4, R10
-40:  NOP
-44:  LW R5, 0(R13)
-48:  LW R6, 4(R13)
-52:  SUB R12, R5, R6
-56:  NOP
-60:  BLTZ R12, Blitzen
-64:  ADD R7, R0, R5
-68:  SW R6, 0(R13)
-72:  SW R7, 4(R13)
+44:  NOP
+48:  NOP
+52:  LW R5, 0(R13)
+56:  LW R6, 4(R13)
+60:  NOP
+64:  NOP
+68:  SUB R12, R5, R6
+72:  NOP
+76:  NOP
+80:  BLTZ R12, Blitzen
+84:  NOP
+88:  ADD R7, R0, R5
+92:  SW R6, 0(R13)
+96:  NOP
+100:  NOP
+104:  SW R7, 4(R13)
 Label Blitzen
-76:  ADDI R4, R4, 4
-80:  BNE R13, R9, Jenessa
-84:  ADDI R3, R3, 4
-88:  NOP
-92:  BNE R3, R8, Idina
-96:  HALT
+108:  ADDI R4, R4, 4
+112:  ADD R13, R4, R10
+116:  BNE R13, R9, Jenessa
+120:  NOP
+124:  ADDI R3, R3, 4
+128:  NOP
+132:  NOP
+136:  BNE R3, R8, Idina
+140:  NOP
+144:  HALT

@@ -29,7 +29,7 @@ public class JTypeInst extends Instruction {
   public static Instruction getJTypeFromOper(int oper, int opcode) {
     JTypeInst newInst = new JTypeInst();
     newInst.opcode = opcode;
-    newInst.offset = oper & 0x03ffffff;
+    newInst.offset = (oper << 16) >> 16;
     return (Instruction) newInst;
   }
 }
