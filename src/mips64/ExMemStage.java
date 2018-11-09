@@ -10,6 +10,7 @@ public class ExMemStage {
     int storeIntData =0; 
     int DestReg;
     boolean jumpOrBranch;
+    boolean isLocked = false;
     //boolean jump;
     
     public ExMemStage(PipelineSimulator sim) {
@@ -19,6 +20,8 @@ public class ExMemStage {
     public void update() {
         //get instPC and opcode and shouldWriteBack from IDEX stage through Sim
         IdExStage idEx = simulator.getIdExStage();
+        MemWbStage MemWb = simulator.getMemWbStage();
+        ForwardReg forwReg = simulator.getForwardReg();
         shouldWriteback = idEx.shouldWriteback;
         instPC = idEx.instPC;
         opcode = idEx.opcode;
@@ -36,8 +39,49 @@ public class ExMemStage {
         
         int operandA = idEx.regAData;
         int operandB = idEx.regBData;
+   
+        // TWO AHEAD
+        if(forwReg.DestReg == idEx.srcRegA ){
+            if(forwReg.opcode > 3 && forwReg.opcode< 18){
+                operandA = forwReg.aluIntData;
+            }else if(forwReg.opcode ==0){
+                operandA = forwReg.loadIntData;
+            }
+            
+        }
         
- 
+        if(forwReg.DestReg == idEx.srcRegB ){
+            if(forwReg.opcode > 3 && forwReg.opcode< 18){
+                operandB = forwReg.aluIntData;
+            }else if(forwReg.opcode ==0){
+                operandB = forwReg.loadIntData;
+            }
+        }
+        
+        // ONE AHEAD
+        //if forward, operandA = forwarddata
+                // if MemWb writing regAData, forward from MemWb
+        if(MemWb.DestReg == idEx.srcRegA ){
+            if(MemWb.opcode > 3 && MemWb.opcode< 18){
+                operandA = MemWb.aluIntData;
+                
+            }else if (MemWb.opcode == Instruction.INST_LW) {
+                     //interlock
+            }
+        }
+        
+        if(MemWb.DestReg == idEx.srcRegB ){
+            if(MemWb.opcode > 3 && MemWb.opcode< 18){
+                operandB = MemWb.aluIntData;
+                
+            }else if (MemWb.opcode == Instruction.INST_LW) {
+                     isLocked = true;
+            }
+        }
+        
+
+
+
         
         switch(opcode){
             case 0:
@@ -217,8 +261,8 @@ public class ExMemStage {
                 break; 
             default:
               //return "NOP";
-            System.out.println ("opcode = " + opcode);
-            System.out.println ("Made if default in EX/MEM....soooooo PROBLEMO!");
+//            System.out.println ("opcode = " + opcode);
+//            System.out.println ("Made if default in EX/MEM....soooooo PROBLEMO!");
                     
       }
             

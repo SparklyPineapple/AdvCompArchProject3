@@ -4,6 +4,7 @@ public class ProgramCounter {
 
   PipelineSimulator simulator;
   int pc;
+  boolean isLocked = false;
 
   public ProgramCounter(PipelineSimulator sim) {
     pc = 0;
@@ -23,7 +24,7 @@ public class ProgramCounter {
   }
 
   public void update() {
-      
+     
      incrPC();
   }
 }

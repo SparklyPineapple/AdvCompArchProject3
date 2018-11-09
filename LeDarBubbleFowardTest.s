@@ -30,9 +30,6 @@ SW R7, 4(R13)
 Label Blitzen
 ADDI R4, R4, 4
 ADD R13, R4, R10
-NOP
-NOP
-NOP
 BNE R13, R9, Jenessa
 NOP
 ADDI R3, R3, 4

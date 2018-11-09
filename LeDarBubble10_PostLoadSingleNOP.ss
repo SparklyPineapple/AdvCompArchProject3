@@ -15,28 +15,27 @@ Label Jenessa
 48:  LW R5, 0(R13)
 52:  LW R6, 4(R13)
 56:  NOP
-60:  NOP
-64:  SUB R12, R5, R6
+60:  SUB R12, R5, R6
+64:  NOP
 68:  NOP
-72:  NOP
-76:  BLTZ R12, Blitzen
-80:  NOP
-84:  ADD R7, R0, R5
-88:  SW R6, 0(R13)
+72:  BLTZ R12, Blitzen
+76:  NOP
+80:  ADD R7, R0, R5
+84:  SW R6, 0(R13)
+88:  NOP
 92:  NOP
-96:  NOP
-100:  SW R7, 4(R13)
+96:  SW R7, 4(R13)
 Label Blitzen
-104:  ADDI R4, R4, 4
-108:  ADD R13, R4, R10
+100:  ADDI R4, R4, 4
+104:  ADD R13, R4, R10
+108:  NOP
 112:  NOP
 116:  NOP
-120:  NOP
-124:  BNE R13, R9, Jenessa
-128:  NOP
-132:  ADDI R3, R3, 4
+120:  BNE R13, R9, Jenessa
+124:  NOP
+128:  ADDI R3, R3, 4
+132:  NOP
 136:  NOP
-140:  NOP
-144:  BNE R3, R8, Idina
-148:  NOP
-152:  HALT
+140:  BNE R3, R8, Idina
+144:  NOP
+148:  HALT

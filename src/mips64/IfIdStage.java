@@ -6,6 +6,7 @@ public class IfIdStage {
   int instPC=-1;
   int opcode=-1;
   boolean EXFoundBranchAndChangedPC = false;
+  boolean isLocked = false;
 
   public IfIdStage(PipelineSimulator sim) {
     simulator = sim;

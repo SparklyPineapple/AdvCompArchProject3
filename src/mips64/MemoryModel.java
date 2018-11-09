@@ -183,6 +183,9 @@ public class MemoryModel {
     if (addr % 4 != 0) {
       throw new MIPSException("getInstAtAddr: non-aligned addr");
     }
+    if (addr > 8000){
+        int z = 0;
+    }
     int oper = memory[addr / 4];
     return Instruction.getInstructionFromOper(oper);
   }
